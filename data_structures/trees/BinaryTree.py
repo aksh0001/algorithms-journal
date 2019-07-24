@@ -25,6 +25,7 @@ class BinaryTree:
             self.root = node
         else:
             self._insert(self.root, node)
+        self.n += 1
 
     def _insert(self, root: TreeNode, node: TreeNode):
         """
