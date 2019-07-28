@@ -19,7 +19,7 @@ def three_sum_naive(nums, target):
     :Space: O(1)
     """
     ret_val = []
-    for i in range(len(nums) - 2):  # i pointer needs to stop at the third-list element
+    for i in range(len(nums) - 2):  # i pointer needs to stop at the third-last element
         for j in range(i + 1, len(nums) - 1):  # j pointer needs to stop at the second-last element
             for k in range(j + 1, len(nums)):
                 if nums[i] + nums[j] + nums[k] == target:
