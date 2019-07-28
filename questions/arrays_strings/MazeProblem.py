@@ -2,6 +2,8 @@
 Module for the basic maze path problem, where given a starting position, a destination, and a maze filled with obstacles,
 return whether it is possible to get from the starting position to the destination.
 
+https://www.cs.bu.edu/teaching/alg/maze/
+
 @author a.k
 """
 from queue import Queue
