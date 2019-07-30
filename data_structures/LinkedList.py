@@ -35,6 +35,23 @@ class SinglyLinkedList():
             self.current.next = node
             self.current = self.current.next  # Update most recently inserted node
 
+    def get(self, key) -> ListNode:
+        """
+        Returns a node associated with a key
+        :param key: key to be added
+        :return: node with the given key
+        :Time: O(N)
+        :Space: O(1)
+        """
+        if self.head is None:
+            return None
+
+        curr = self.head
+        while curr is not None:
+            if curr.key == key:
+                return curr
+            curr = curr.next
+
     def delete_start(self):
         """
         Deletes node at the start of the list
@@ -98,7 +115,7 @@ class SinglyLinkedList():
 if __name__ == "__main__":
     test = SinglyLinkedList()
     for i in range(1, 10 + 1):
-        test.insert(i)
+        test.insert(i, i ** 2)
 
     test.delete_start()
     test.delete_end()
@@ -111,7 +128,7 @@ if __name__ == "__main__":
     test.delete_by_key(8)
 
     for i in range(10, 15 + 1):
-        test.insert(i)
+        test.insert(i, i ** 2)
 
     test.delete_by_key(12)
     test.delete_by_key(14)
@@ -120,3 +137,6 @@ if __name__ == "__main__":
     test.delete_by_key(13)
 
     test.print_list()  # test: 6->10->11
+    print(test.get(10).val)
+    print(test.get(11).val)
+    print(test.get(1738))
