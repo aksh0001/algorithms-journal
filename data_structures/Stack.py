@@ -47,7 +47,7 @@ class Stack():
             raise Exception("Stack is Empty!")
         return self.stack[self.size - 1]
 
-    def size(self):
+    def get_size(self):
         return self.size
 
     def is_empty(self):
