@@ -32,6 +32,49 @@ def naive(head: ListNode) -> ListNode:
     return None
 
 
+def solution_alternate(head: ListNode) -> ListNode:
+    """
+    Another O(1) space alternative to Floyd's algorithm.
+    Very clever strategy: Create a dummy node. Traverse the list and re-point the next link of every node to the dummy.
+    If we come across that the next link is already pointing to the dummy node--cycle found. If we come across a None,
+    no cycle exists.
+    :param head: head of list
+    :Time: O(N)
+    :Space: O(1)
+    :return: the starting node of the cycle; none if no cycle present
+    """
+    DUMMY = ListNode(-1)
+    curr = head
+    while curr:
+        if curr.next == DUMMY:  # If the node is already pointing to the dummy, then it indicates start of cycle
+            return curr
+
+        next_copy = curr.next  # Save link to the next node that is about to be re-pointed to the dummy
+        curr.next = DUMMY  # Re-point the next node to the dummy node
+        curr = next_copy  # Using the saved link, update curr
+    return None
+
+
+def solution(head: ListNode) -> ListNode:
+    """
+    Uses Floyd's algorithm to return the starting node in a cycle in a linked list
+    :param head: head of list
+    :Time: O(N)
+    :Space: O(1)
+    :return: the node at the start of the cycle; None, otherwise.
+    """
+    p1 = head  # p1 be at a distance = d from the head (by advancing by one)
+    p2 = head  # p2 be at a distance = 2*d from the head (by advancing by two)
+
+    while p1 and p2 and p2.next:  # If p2 is at last node (and its next is None) then no cycle detected
+        if p1 == p2:  # Cycle detected if they meet
+            return True
+        p1 = p1.next
+        p2 = p2.next.next
+
+    return False  # No cycle detected
+
+
 def contains_cycle(head: ListNode) -> bool:
     """
     Uses Floyd's algorithm to detect whether there is a cycle in a linked list
@@ -88,4 +131,14 @@ if __name__ == "__main__":
                 assert naive(t) is None, "Error!"
             else:
                 assert naive(t.head) == a, "Error!"
-    print("PASSED")
+    print("PASSED NAIVE")
+
+    for t, a in zip(tests, ans):
+        if a is not None:
+            assert solution_alternate(t.head).val == a, "Error!"
+        else:
+            if t is None:
+                assert solution_alternate(t) is None, "Error!"
+            else:
+                assert solution_alternate(t.head) == a, "Error!"
+    print("PASSED ALTERNATE")
