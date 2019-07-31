@@ -22,8 +22,6 @@ def merge(a1: list, a2: list) -> list:
     :Space: O(N + M) for aux array
     :return: a sorted array merging a1 and a2
     """
-    if a1 is None and a2 is None:
-        return None
     if a1 is None:
         return a2
     if a2 is None:
@@ -36,12 +34,11 @@ def merge(a1: list, a2: list) -> list:
     while i < n and j < m:
         if a1[i] < a2[j]:  # If a1[i] is smaller, copy that
             a3[k] = a1[i]
-            k += 1
             i += 1
         else:
             a3[k] = a2[j]  # Else, copy a2[j]
-            k += 1
             j += 1
+        k += 1
 
     # If elements are remaining in either array, copy those
     while i < n:
