@@ -7,7 +7,7 @@ This module implements a queue
 
 class Queue:
     def __init__(self):
-        self.queue = [None] * 2
+        self.queue = [None] * 2  # start off with two elements
         self.first = 0  # points to the start of queue
         self.last = 0  # points to the end of the queue
         self.size = 0
