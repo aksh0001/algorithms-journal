@@ -58,6 +58,8 @@ def solution_alternate(head: ListNode) -> ListNode:
 def solution(head: ListNode) -> ListNode:
     """
     Uses Floyd's algorithm to return the starting node in a cycle in a linked list
+    "Much like two cars racing around a track at different speeds, they must eventually meet"
+    @see proof of why this works!
     :param head: head of list
     :Time: O(N)
     :Space: O(1)
@@ -66,11 +68,24 @@ def solution(head: ListNode) -> ListNode:
     p1 = head  # p1 be at a distance = d from the head (by advancing by one)
     p2 = head  # p2 be at a distance = 2*d from the head (by advancing by two)
 
-    while p1 and p2 and p2.next:  # If p2 is at last node (and its next is None) then no cycle detected
-        if p1 == p2:  # Cycle detected if they meet
-            return True
+    while p1 and p2 and p2.next:
         p1 = p1.next
         p2 = p2.next.next
+        if p1 == p2:  # Cycle detected if they meet
+            break
+    if p2 is None or p2.next is None:
+        return None  # No cycle
+
+    # Cycle is detected and now we must find the starting point of the cycle, this is where the maths needs to be proven
+    # Move either pointer to the head. Each pointer is k steps away from the loop's start. If they move at the same
+    # pace, they MUST meet at the start of the loop.
+    p1 = head
+    while p1 != p2:
+        p1 = p1.next
+        p2 = p2.next
+
+    # Both pointers point to the start of the cycle
+    return p1
 
     return False  # No cycle detected
 
@@ -135,6 +150,16 @@ if __name__ == "__main__":
 
     for t, a in zip(tests, ans):
         if a is not None:
+            assert solution(t.head).val == a, "Error!"
+        else:
+            if t is None:
+                assert solution(t) is None, "Error!"
+            else:
+                assert solution(t.head) == a, "Error!"
+    print("PASSED SOLUTION")
+
+    for t, a in zip(tests, ans):
+        if a is not None:
             assert solution_alternate(t.head).val == a, "Error!"
         else:
             if t is None:
@@ -142,3 +167,4 @@ if __name__ == "__main__":
             else:
                 assert solution_alternate(t.head) == a, "Error!"
     print("PASSED ALTERNATE")
+    print(">>>PASSED ALL<<<")
