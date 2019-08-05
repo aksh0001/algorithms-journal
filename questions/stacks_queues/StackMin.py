@@ -16,9 +16,9 @@ class StackWithMin(Stack):
         self.s2 = Stack()  # This stack stores the minimum element; the top of the stack contains the minimum
 
     def push(self, item):
-        # This time, when pushing, we check to see if the item being pushed is less than our current min
-        # If so, we add this item to the top of our stack
-        if item < self.get_min():
+        # This time, when pushing, we check to see if the item being pushed is less than (or equal) to our current min
+        # If so, we add this item to the top of our second stack
+        if item <= self.get_min():
             self.s2.push(item)
         super().push(item)
 
@@ -54,4 +54,10 @@ if __name__ == '__main__':
     for i in range(6):
         stack.pop()
     assert stack.get_min() == 1, 'Error!'
+    test_2 = [2, 2, 2]
+    stack = StackWithMin()
+    for i in test_2:
+        stack.push(i)
+    stack.pop()
+    assert stack.get_min() == 2, 'Error!'
     print('Basic Test Cases PASSED!')
