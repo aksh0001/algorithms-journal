@@ -109,7 +109,7 @@ class Trie:
 
     def get_all_values(self, root: TrieNode) -> List:
         """
-        Uses DFS to return all the values from all nodes rooted at a particular node in the trie.
+        Uses DFS (pre-order traversal) to return all the values from all nodes rooted at a particular node in the trie.
         :param root: a root in the Trie from which to get all the values from
         :Time: O(T) if we wish to get all the values from the main root
         :return: a list of all values
@@ -126,7 +126,7 @@ class Trie:
 
     def get_all_keys(self, root: TrieNode, curr: str = '') -> List[str]:
         """
-        Using DFS, retrieves/constructs the path represented by keys rooted at the given root.
+        Using DFS (pre-order), retrieves/constructs the path represented by keys rooted at the given root.
         E.g. given root node is 's' and the trie contains, 'she', 'sheep', 'shop', it returns ['he', 'heep', 'hop']
         Algorithm: The state at a given node is defined by Two parameters:
                 1) The node itself (to enable to recur to children)
