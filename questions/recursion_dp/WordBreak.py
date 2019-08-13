@@ -112,11 +112,12 @@ class Solution:
 
 if __name__ == '__main__':
     print('Testing...')
-    dictionaries = [{'apple', 'pie', 'app'}, {'i', 'like', 'sam', 'sung', 'samsung', 'mobile', 'ice',
-                                              'cream', 'icecream', 'man', 'go', 'mango'}]
+    dictionaries = [{'apple', 'pie', 'app'},
+                    {'i', 'like', 'sam', 'sung', 'samsung', 'mobile', 'ice', 'cream', 'icecream', 'man', 'go', 'mango'},
+                    {"cats", "dog", "sand", "and", "cat"}]
     tests = [('applepie', dictionaries[0]), ('ilike', dictionaries[1]), ('ilikesamsung', dictionaries[1]),
              ('goicesamman', dictionaries[1]), ('samsung', dictionaries[1]), (None, dictionaries[1]),
-             ('banana', dictionaries[0])]
+             ('banana', dictionaries[0]), ("catsandog", dictionaries[2])]
 
     naive = Naive()
     sol = Solution()
