@@ -1,6 +1,6 @@
 """
 This module implements a prefix trie using an array of child references--instead of hash tables--as the underlying
-data structure, to allow for string sorting.
+data structure, to allow for string sorting. (non-compressed-O(n*m) space
 
 Possible ways to index children:
 1) Array of child pointers (quick to access, but high space requirement since a lot of None pointers exist)
