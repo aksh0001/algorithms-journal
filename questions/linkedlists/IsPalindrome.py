@@ -1,6 +1,6 @@
 """
 Module to check whether a linked list is a palindrome.
-Approaches: 1) Use a stack (O(N) space and time); 2) Reverse and compare (O(N) time O(1) space)
+Approaches: 1) Use a stack (O(N) space and time); 2) Reverse and compare (O(N) time O(N) space)
 
 todo: we are comparing the whole list - only need to check half the list, since the other half will be identical
 See: https://www.geeksforgeeks.org/function-to-check-if-a-singly-linked-list-is-palindrome/
