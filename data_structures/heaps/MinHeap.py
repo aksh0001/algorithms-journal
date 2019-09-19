@@ -40,6 +40,7 @@ class MinHeap:
             self.sink()
             self.heap.pop(self.size + 1)  # Prevent loitering
             return min
+        raise Exception("Heap is empty!!")
 
     def swim(self):
         """
@@ -61,15 +62,13 @@ class MinHeap:
         r = 1
         while 2 * r <= self.size:
             j = 2 * r
-            if j < self.size and self.heap[j + 1][0][1] < self.heap[j][0][1]:  # Note: item's key is second element
+            if j < self.size and self.heap[j + 1][0] < self.heap[j][0]:  # Note: item's key is second element
                 j += 1  # If parent's right child is smaller than its left, we swap it with that
-            elif j < self.size and (
-                    (self.heap[j + 1][0][1] == self.heap[j][0][1]) and self.heap[j + 1][1] > self.heap[j][1]):
+            elif j < self.size and ((self.heap[j + 1][0] == self.heap[j][0]) and self.heap[j + 1][1] > self.heap[j][1]):
                 j += 1  # If elements are equal, compare priorities (a larger priority value means relatively smaller)
 
-            if self.heap[r][0][1] < self.heap[j][0][1] or (
-                    (self.heap[r][0][1] == self.heap[j][0][1]) and self.heap[r][1] > self.heap[j][
-                1]):
+            if self.heap[r][0] < self.heap[j][0] or (
+                    (self.heap[r][0] == self.heap[j][0]) and self.heap[r][1] > self.heap[j][1]):
                 break
             self._swap(r, j)
             r = j
@@ -86,7 +85,7 @@ class MinHeap:
         This method returns the minimum of the heap
         :return: the root of the heap (min)
         """
-        return self.heap[1][0][1]
+        return self.heap[1]
 
     def _swap(self, i, j):
         """
@@ -117,5 +116,11 @@ if __name__ == '__main__':
     mh1.push(6, priority=8)
     mh1.push(17, priority=2)
     mh1.push(17, priority=5)
-
     print(mh1.heap)
+
+    print("peek:", mh1.peek())
+
+    p1 = mh1.pop()
+    print(p1[0], 'priority:', p1[1])  # notice that the higher priority (of 8) 6 is popped first
+    p2 = mh1.pop()
+    print(p2[0], 'priority:', p2[1])
