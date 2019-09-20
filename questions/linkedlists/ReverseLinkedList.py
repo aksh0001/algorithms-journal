@@ -64,6 +64,7 @@ def recursive(head: ListNode) -> ListNode:
     return head
 
 
+reverse_list = iterative  # public function
 if __name__ == '__main__':
     print("\n>>>Testing iterative<<<\n")
     print('Original:')
