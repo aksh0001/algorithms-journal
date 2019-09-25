@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# https://www.atlassian.com/git/tutorials/saving-changes/gitignore
+/Dev Concepts.docx
+/.idea
+
 # Distribution / packaging
 .Python
 build/
