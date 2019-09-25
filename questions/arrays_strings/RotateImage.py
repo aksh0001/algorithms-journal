@@ -14,6 +14,7 @@ Output:
  @author a.k
 """
 from typing import List
+from common_utils import print_matrix
 
 
 def rotate(matrix: List[List[int]]):
@@ -54,9 +55,7 @@ def swap_corners(img, a: tuple, b: tuple, c: tuple, d: tuple):
 
 if __name__ == '__main__':
     test = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    print('\n'.join([''.join(['{:4}'.format(item) for item in row])
-                     for row in test]))
+    print_matrix(test)
     rotate(test)
     print("\n")
-    print('\n'.join([''.join(['{:4}'.format(item) for item in row])
-                     for row in test]))
+    print_matrix(test)
