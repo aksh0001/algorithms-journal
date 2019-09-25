@@ -3,9 +3,9 @@ This module implements Binary Search Trees
 
 @author a.k
 """
-from data_structures.trees.utils import *
-from data_structures.trees.BinaryTree import TreeNode
 import random
+
+from data_structures.trees.utils import *
 
 
 class BST:

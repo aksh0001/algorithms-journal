@@ -3,8 +3,15 @@ Contains simple Tree util functions
 
 @author a.k
 """
-from data_structures.trees.BinaryTree import TreeNode
 from queue import Queue
+
+
+class TreeNode:
+    def __init__(self, key, val=None):
+        self.key = key
+        self.val = val
+        self.left = None
+        self.right = None
 
 
 def print_pre_order(root: TreeNode):

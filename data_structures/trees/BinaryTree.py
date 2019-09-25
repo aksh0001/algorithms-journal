@@ -3,16 +3,9 @@ This module implements Binary Trees.
 
 @author a.k
 """
-from data_structures.trees.utils import *
 import random
 
-
-class TreeNode:
-    def __init__(self, key, val=None):
-        self.key = key
-        self.val = val
-        self.left = None
-        self.right = None
+from data_structures.trees.utils import *
 
 
 class BinaryTree:
