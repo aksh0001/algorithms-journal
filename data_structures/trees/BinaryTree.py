@@ -6,6 +6,7 @@ This module implements Binary Trees.
 import random
 
 from data_structures.trees.utils import *
+import gc
 
 
 class BinaryTree:
@@ -170,19 +171,42 @@ class BinaryTree:
         height = max(self._get_height(root.left), self._get_height(root.right)) + 1
         return height
 
+    def delete_tree(self):
+        def delete_tree_helper(root: TreeNode):
+            """
+            Assuming no GC available, manually post-order traverses the tree and deletes every node.
+                - Correct way to delete: delete left and right subtrees first, then the root.
+            :param root: root of tree
+            :Time: O(N)
+            :Space: O(N)
+            :return: none
+            """
+            if root is None:
+                return
+
+            # post-order traverse
+            delete_tree_helper(root.left)
+            delete_tree_helper(root.right)
+            root.left = None
+            root.right = None
+
+        delete_tree_helper(self.root)
+        # we also need to set the global root to None
+        self.root = None
+
 
 if __name__ == "__main__":
-    test = BinaryTree()
-    for i in range(1, 11):
-        test.insert(i, i ** 2)
-
-    print_level_order(test.root)
-    print("")
-    print_post_order(test.root)
-    print("")
-    # print(test.get(11))
-    print(test.get(7).val)
-    print(test.contains(6))
+    # test = BinaryTree()
+    # for i in range(1, 11):
+    #     test.insert(i, i ** 2)
+    #
+    # print_level_order(test.root)
+    # print("")
+    # print_post_order(test.root)
+    # print("")
+    # # print(test.get(11))
+    # print(test.get(7).val)
+    # print(test.contains(6))
 
     test_2 = BinaryTree()
     for i in range(1, 11):
@@ -192,3 +216,13 @@ if __name__ == "__main__":
     print(test_2.get_max())
     print(test_2.get_min())
     print(test_2.get_height())
+    print('TESTING DELETE TREE\n')
+    pretty_print_tree(test_2.root)
+
+    test_2.delete_tree()
+    assert test_2.get_height() == 0, 'Error deleting!'
+    print('DELETE TREE PASSED\n')
+    test_2 = BinaryTree()
+    for i in range(1, 11):
+        test_2.insert(int(random.random() * 100))
+    pretty_print_tree(test_2.root)
