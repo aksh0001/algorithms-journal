@@ -167,6 +167,64 @@ class BST:
 
         return current.key
 
+    def get_min_node(self, root: TreeNode) -> TreeNode:
+        """
+        This returns the minimum key's node in the BST
+        Algorithm: If root is none, no solution. Else, traverse the left subtree like a linked list
+        and return the left-most node
+        :Time: O(N)
+        :Space: O(1)
+        :return: the minimum key node in the tree
+        """
+        if root is None:  # BC1
+            return None
+
+        current = root
+        while current.left is not None:  # Traverse like a linked-list
+            current = current.left
+
+        return current
+
+    def delete(self, key) -> TreeNode:
+        def delete_helper(root: TreeNode, key) -> TreeNode:
+            """
+            Deletes a node associated with key, key, in the tree and returns the root of the resulting
+            tree, which may be updated.
+            :param root: root of tree
+            :param key: key to be deleted
+            :Time: O(log(n)) average
+            :Space: O(log(n) average
+            :return: the resulting root of the tree
+            """
+            if root is None:
+                return None
+            if key < root.key:
+                new_root_left = delete_helper(root.left, key)  # get new root of left subtree
+                root.left = new_root_left  # assign root.left to the new root of the left subtree
+            elif key > root.key:
+                new_root_right = delete_helper(root.right, key)
+                root.right = new_root_right
+            else:  # found match, handle 3 cases
+                # case 1 - match is a leaf node (return None back up the stack)
+                if root.left is None and root.right is None:
+                    return None  # root of new subtree is None
+                # case 2 - match has one child (return the other back up the stack)
+                elif root.left is None:
+                    return root.right  # return the right subtree back up the stack to indicate that its the new root
+                elif root.right is None:  # vice-versa
+                    return root.left
+                # case 3 - replace match with inorder successor; delete the successor; return up the stack
+                else:
+                    inorder_successor = self.get_min_node(root.right)
+                    root.key, root.val = inorder_successor.key, inorder_successor.val  # copy  successor into current
+                    new_root_successor = delete_helper(root.right, inorder_successor.key)  # delete inorder successor
+                    root.right = new_root_successor
+                    return root
+
+            return root  # return root of resulting tree as required
+
+        return delete_helper(self.root, key)
+
 
 if __name__ == "__main__":
     test = BST()
@@ -186,3 +244,32 @@ if __name__ == "__main__":
     # print(test.contains(19))
     print(test.contains(3))
     print(test.get_max())
+    print('TEST DELETE\n')
+    test = BST()
+    test.insert(50)
+    test.insert(30)
+    test.insert(70)
+    test.insert(20)
+    test.insert(40)
+    test.insert(60)
+    test.insert(80)
+    test.insert(32)
+    test.insert(65)
+    test.insert(85)
+    test.insert(34)
+    test.insert(75)
+    test.insert(36)
+    pretty_print_tree(test.root)
+
+    print('DELETING 50\n')
+    test.delete(50)
+    pretty_print_tree(test.root)
+    print('DELETING 60\n')
+    test.delete(60)
+    pretty_print_tree(test.root)
+    print('DELETING 40\n')
+    test.delete(40)
+    pretty_print_tree(test.root)
+    print('DELETING 20\n')
+    test.delete(20)
+    pretty_print_tree(test.root)
