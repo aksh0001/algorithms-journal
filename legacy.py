@@ -4,6 +4,7 @@ Contains deprecated/unoptimized code fragments.
 from data_structures.trees.utils import *
 
 
+# For binary tree deletion
 def delete(self, key):
     def delete_helper(root: TreeNode, key):
         if root is None:
@@ -45,6 +46,22 @@ def delete(self, key):
             delete_helper(root.right, inorder_successor.key)  # delete inorder successor
 
     delete_helper(self.root, key)
+
+
+# For "Parens" problem
+# LEGACY code (first accepted solution)
+def generate(n, open, closed, ans, curr):
+    if open > n or closed > n:
+        return
+    if open == closed:  # must use open (using close will invalidate expression)
+        generate(n, open + 1, closed, ans, curr + '(')
+    elif open == n:  # must fill rest with remaining closed
+        rest_closed = "".join([')'] * (n - closed))
+        ans.append(curr + rest_closed)
+        return
+    else:
+        generate(n, open + 1, closed, ans, curr + '(')
+        generate(n, open, closed + 1, ans, curr + ')')
 
 
 if __name__ == '__main__':
