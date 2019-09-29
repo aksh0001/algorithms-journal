@@ -18,6 +18,8 @@ Return true.
  4   4
 Return false.
 
+REF: https://www.afternerd.com/blog/python-check-tree-balanced/
+
 @author a.k
 """
 from data_structures.trees.BinaryTree import BinaryTree
