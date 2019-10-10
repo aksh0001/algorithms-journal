@@ -43,7 +43,7 @@ class BST:
             else:
                 self._insert(root.left, node)  # Else, simply recur left
 
-        if node.key > root.key:  # Similar for the right subtree
+        elif node.key > root.key:  # Similar for the right subtree
             if root.right is None:
                 root.right = node
             else:
