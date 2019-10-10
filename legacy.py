@@ -1,7 +1,7 @@
 """
 Contains deprecated/unoptimized code fragments.
 """
-from data_structures.trees.utils import *
+from data_structures.trees.BinarySearchTree import BST, TreeNode
 
 
 # For binary tree deletion
@@ -62,6 +62,67 @@ def generate(n, open, closed, ans, curr):
     else:
         generate(n, open + 1, closed, ans, curr + '(')
         generate(n, open, closed + 1, ans, curr + ')')
+
+
+# For AVL Tree insertion
+# Note how we calculate the balance factors during construction
+# (i.e. increase if we insert left and decrease if we insert right)
+# legacy implementation that doesn't track the height--which is important
+class AVLTreeNode(TreeNode):
+    def __init__(self, key, val=None, bf=0):
+        super().__init__(key, val)
+        self.key = key
+        self.val = val
+        self.left = None
+        self.right = None
+        self.parent = None  # Also track parent of this node
+        self.bf = bf  # Balance factor of current node
+
+
+class AVLTree(BST):
+    def __init__(self):
+        super().__init__()
+
+    def insert(self, key, val=None):
+        node = AVLTreeNode(key, val, bf=0)
+        if self.root is None:
+            self.root = node
+        else:
+            self._insert(self.root, node)
+        self.n += 1
+
+    def _insert(self, root: AVLTreeNode, node: AVLTreeNode):
+        """
+        Given an AVLTreeNode, inserts the node in the Tree rooted at "root" and also updates balance
+        factors of every node in the tree.
+        :param root: root of AVL tree
+        :param node: node to insert
+        :Time: O(log(n))
+        :Space: O(log(n)) stack space proportional to height
+        :return: none
+        """
+        if not root:
+            return
+        if node.key < root.key:
+            root.bf += 1  # increase root's bf to indicate it's left subtree will be lengthened
+            if root.left is None:
+                root.left = node
+                node.parent = root  # assign the parent to the node just inserted
+            else:
+                self._insert(root.left, node)
+        elif node.key > root.key:
+            root.bf -= 1  # decrease root's bf to indicate it's right subtree will be lengthened
+            if root.right is None:
+                root.right = node
+                node.parent = root  # assign the parent to the node just inserted
+            else:
+                self._insert(root.right, node)
+
+        # RE-BALANCE CURRENT ROOT IF REQUIRED
+        self.rebalance(root)
+
+    def rebalance(self, root: AVLTreeNode):
+        pass
 
 
 if __name__ == '__main__':
