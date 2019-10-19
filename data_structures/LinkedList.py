@@ -17,6 +17,7 @@ class SinglyLinkedList():
     def __init__(self):
         self.head = None  # Head of LL
         self.current = None  # Keeps track of most recently inserted node for O(1) insert
+        self.n = 0  # Track number of nodes
 
     def insert(self, key, val=None):
         """
@@ -34,6 +35,7 @@ class SinglyLinkedList():
         else:
             self.current.next = node
             self.current = self.current.next  # Update most recently inserted node
+        self.n += 1
 
     def get(self, key) -> ListNode:
         """
@@ -59,6 +61,7 @@ class SinglyLinkedList():
         :Time: O(1)
         """
         self.head = self.head.next
+        self.n -= 1
 
     def delete_end(self):
         """
@@ -68,8 +71,9 @@ class SinglyLinkedList():
         """
         if self.head is None:
             return
-        if self.head.next is None:
+        if self.head.next is None:  # if list only has one node
             self.head = None
+            self.n -= 1
             return
 
         temp = self.head
@@ -78,6 +82,7 @@ class SinglyLinkedList():
 
         temp.next = None
         self.current = temp
+        self.n -= 1
 
     def print_list(self):
         """
@@ -110,6 +115,94 @@ class SinglyLinkedList():
             if temp.next.next is None:  # If last node to be deleted, update current
                 self.current = temp
             temp.next = temp.next.next
+            self.n -= 1
+
+    def add_at_head(self, key: int) -> None:
+        """
+        Adds a node to the head of the list
+        :param key: key of node
+        :Time: O(1)
+        :return: none
+        """
+        if not self.head:
+            self.head = ListNode(key)
+            self.current = self.head
+        else:
+            node = ListNode(key)
+            node.next = self.head
+            self.head = node
+        self.n += 1
+
+    def add_at_tail(self, key: int) -> None:
+        """
+        Adds a node at the tail
+        :param key: key of node to be added
+        :Time: O(1)
+        :return: none
+        """
+        if not self.head:
+            self.add_at_head(key)
+        else:
+            self.current.next = ListNode(key)
+            self.current = self.current.next
+            self.n += 1
+
+    def add_at_index(self, index: int, key: int) -> None:
+        """
+        Add a node of value val before the index-th node in the linked list. If index equals to the length of LL,
+        the node will be appended to the end of linked list.
+        :param index: index of node to be added
+        :param key: key of node to be added
+        :Time: O(N)
+        :return: none
+        """
+        if index == self.n:  # append to end if we have to add at the index'th node
+            self.add_at_head(key)
+        elif index == 0:  # add to head if we hae to add at the start
+            self.add_at_tail(key)
+        elif 0 <= index <= self.n - 1:
+            p1 = self.head
+            for i in range(index - 1):
+                p1 = p1.next
+            tmp = p1.next  # save next
+            p1.next = ListNode(key)  # create
+            p1.next.next = tmp  # repoint to saved
+            self.n += 1
+
+    def delete_at_index(self, index: int) -> None:
+        """
+        Delete the index-th node in the linked list, if the index is valid.
+        :param index: index of node to be deleted
+        :Time: O(1)
+        :return: none
+        """
+        if 0 <= index <= self.n - 1:
+            if index == 0:  # remove from head if deleting at index 0
+                self.head = self.head.next
+                if self.n == 1:  # update curr if deleting from a list with 1 node
+                    self.current = None
+            else:
+                p1 = self.head
+                for i in range(index - 1):  # get p1 to index-1 position ready to delete
+                    p1 = p1.next
+                if index == self.n - 1:  # if deleting last node, update curr
+                    self.current = p1
+                p1.next = p1.next.next  # delete the node
+            self.n -= 1
+
+    def get_by_index(self, index: int):
+        """
+        Get the value of the index-th node in the linked list. If the index is invalid, return -1.
+        :param index: index of item
+        :Time: O(N)
+        :return: the key at the index'th node
+        """
+        if index < 0 or index >= self.n:
+            return -1
+        p1 = self.head
+        for i in range(index):
+            p1 = p1.next
+        return p1.key
 
 
 if __name__ == "__main__":
