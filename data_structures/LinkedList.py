@@ -3,6 +3,7 @@ This module implements Linked Lists.
 
 @author a.k
 """
+from typing import List
 
 
 class ListNode():
@@ -91,6 +92,9 @@ class SinglyLinkedList():
         :Time: O(N)
         :Space: O(1)
         """
+        if not self.head:
+            print(None)
+            return
         temp = self.head
         while temp.next is not None:
             print(str(temp.key) + "->", end=" ")
