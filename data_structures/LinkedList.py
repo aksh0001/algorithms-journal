@@ -208,6 +208,15 @@ class SinglyLinkedList():
             p1 = p1.next
         return p1.key
 
+    def __iter__(self):
+        """
+        Iterate over the linked list.
+        """
+        current = self.head
+        while current:
+            yield current.key
+            current = current.next
+
 
 if __name__ == "__main__":
     test = SinglyLinkedList()
@@ -237,3 +246,9 @@ if __name__ == "__main__":
     print(test.get(10).val)
     print(test.get(11).val)
     print(test.get(1738))
+
+    # Testing iterator
+    test.print_list()
+    print('---')
+    for t in test:
+        print(t)
