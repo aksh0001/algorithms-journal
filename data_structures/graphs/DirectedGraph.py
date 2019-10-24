@@ -6,7 +6,7 @@ This module implements an directed Graph API.
 from typing import List, Tuple, Iterable
 
 from data_structures.LinkedList import SinglyLinkedList
-from data_structures.graphs.graph_utils import Edge, GeneralGraph, dfs_print
+from data_structures.graphs.graph_utils import Edge, GeneralGraph, dfs_print, bfs_print
 
 
 class DGraph(GeneralGraph):
@@ -75,9 +75,11 @@ class DGraph(GeneralGraph):
 
 if __name__ == '__main__':
     dg = DGraph(13)
-    edges_add = [(0, 1), (0, 2), (6, 0), (0, 5), (4, 6), (3, 4), (5, 3), (5, 4), (7, 8), (9, 10), (9, 12), (9, 11)]
+    edges_add = [(0, 1), (0, 5), (0, 2), (6, 0), (4, 6), (3, 4), (5, 3), (5, 4), (7, 8), (9, 10), (9, 12), (9, 11)]
     dg.assemble(edges_add)
 
     print(dg)
     print('DFS')
-    dfs_print(dg, 5)
+    dfs_print(dg, 0)
+    print('BFS')
+    bfs_print(dg, 0)

@@ -5,6 +5,7 @@ Common graph processing functions
 """
 import abc
 from typing import List
+from data_structures.Queue import Queue
 
 
 class Edge:
@@ -74,9 +75,11 @@ def dfs_print(G: GeneralGraph, s: int):
     Prints graphs from source s in dfs fashion
     :param G: graph
     :param s: source
+    :Time: O(V + E)
+    :Space: O(V)
     :return: none
     """
-    visited = [False for i in range(G.total_vertices())]
+    visited = [False for _ in range(G.total_vertices())]
 
     def dfs(s: int, visited: List[bool]):
         visited[s] = True
@@ -86,3 +89,28 @@ def dfs_print(G: GeneralGraph, s: int):
                 dfs(w.get_to(), visited)
 
     dfs(s, visited)
+
+
+def bfs_print(G: GeneralGraph, s: int):
+    """
+    Prints graphs from source s in bfs fashion
+    :param G: graph
+    :param s: source
+    :Time: O(V + E)
+    :Space: O(V)
+    :return: none
+    """
+    bfs_queue, visited = Queue(), [False for _ in range(G.total_vertices())]
+    # Mark source as visited and enqueue
+    visited[s] = True
+    bfs_queue.enqueue(s)
+
+    while not bfs_queue.is_empty():
+        # dequeue and print
+        removed = bfs_queue.dequeue()
+        print(removed)
+        # process adjacent vertices
+        for w in G.adjacent(removed):
+            if not visited[w.get_to()]:  # If not visited mark as visited and enqueue
+                visited[w.get_to()] = True
+                bfs_queue.enqueue(w.get_to())
