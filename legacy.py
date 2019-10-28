@@ -125,5 +125,52 @@ class AVLTree(BST):
         pass
 
 
+# For MinStack problem - 99.50% on leetcode
+class MinStack:
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.stack = [None] * (2)  # stack itself
+        self.cap = 2
+        self.n = 0  # number of items in the stack (points to next empty item)
+        self.min_stack = [float('inf')]  # *** tracks the current minimum; item at top = current min
+
+    def push(self, x: int) -> None:
+        if self.n == self.cap:
+            self.resize(int(self.cap * 1.5))
+        self.stack[self.n] = x
+        self.n += 1
+        # NOW DO THE MIN STACK CHECK!!
+        # @ SREERAM!!! --> EVEN IF X = CURRENT MIN WE HAVE TO APPEND! - THINK OF DUPS!
+        if x <= self.min_stack[-1]:  # If current item is smaller, push onto min_stack
+            self.min_stack.append(x)
+        # else, do nothing
+
+    def pop(self) -> None:
+        ret_val = self.stack[self.n - 1]
+        self.stack[self.n - 1] = None  # prevent loitering
+        self.n -= 1
+        # MIN STACK CHECK - if item popped is the current min in min_stack, pop it also
+        if ret_val == self.min_stack[-1]:
+            self.min_stack.pop()
+        return ret_val
+
+    def top(self) -> int:
+        return self.stack[self.n - 1]
+
+    def getMin(self) -> int:
+        # Return the top of the min_stack, which is the current minimum
+        return self.min_stack[-1]
+
+    def resize(self, new_cap):
+        aux = [None] * new_cap
+        for i in range(self.n):
+            aux[i] = self.stack[i]
+        self.stack = aux
+        self.cap = new_cap
+
+
 if __name__ == '__main__':
     pass
