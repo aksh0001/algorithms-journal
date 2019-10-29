@@ -225,6 +225,29 @@ class BST:
 
         return delete_helper(self.root, key)
 
+    def insert_alternate(self, root: TreeNode, key) -> TreeNode:
+        """
+        The "Return Node" approach for BST insertion.
+        @Algorithm:   - NOTE: The return node approach makes it easier (although can be non-intuitive)
+                      - This function will insert a new node of given key into the tree rooted at root
+                        and will return the root of the resulting tree
+                      - Therefore the base case: if empty tree create node and return
+                      - If going left: set root.left to the resulting root of the left subtree
+                      - If going right: set root.right to the resulting root of the right subtree
+                      - Then simply return the root back up
+        :param root: root of tree
+        :param key: key to insert
+        :return: the root of the resulting tree after insertion
+        """
+        # Return Node approach: return root of resulting tree
+        if not root:
+            return TreeNode(key)  # If empty root this is the root of new tree
+        if key < root.key:
+            root.left = self.insert_alternate(root.left, key)  # insert and update left subroot
+        elif key > root.key:
+            root.right = self.insert_alternate(root.right, key)  # insert and update right subroot
+        return root  # return root back up
+
 
 if __name__ == "__main__":
     test = BST()
