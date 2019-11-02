@@ -22,9 +22,9 @@ class AVLTreeNode(TreeNode):
         self.val = val
         self.left = None
         self.right = None
-        self.parent = None  # Also track parent of this node
+        self.parent = None  # Also track parent of this node for easier rotations
         self.bf = bf  # Balance factor of current node
-        self.height = 1  # Height of tree rooted at this node (this is important)
+        self.height = 1  # Height of subtree rooted at this node (this is important to update bf's after re-balancing)
 
 
 class AVLTree(BST):
