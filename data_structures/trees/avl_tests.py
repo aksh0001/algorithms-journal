@@ -1,5 +1,6 @@
 """
 Test module for AVL Trees + benchmark against BSTs
+My benchmark on colab: https://colab.research.google.com/drive/15fkiTH2a_uNyx57Yl2JwI3orR8OUlxCc
 
 @author a.k
 """
