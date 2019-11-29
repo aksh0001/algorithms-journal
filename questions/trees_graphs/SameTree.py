@@ -29,17 +29,14 @@ def is_same_tree(t1: TreeNode, t2: TreeNode) -> bool:
     :Space: O(N) (best case O(log(n)) since num recursion stacks proportional to height)
     :return: whether they are the same
     """
-    if t1 is None and t2 is None:  # both nulls are same
+    if not t1 and not t2:  # both nulls are same
         return True
-    elif t1 is None:  # if either one is null, not the same
+    elif not t1 or not t2:  # if one is null, not the same
         return False
-    elif t2 is None:
+    elif t1.val != t2.val:  # if value mismatch not the same
         return False
-    else:
-        if t1.key != t2.key:  # if value mismatch not the same
-            return False
-        else:  # if value match check left and right
-            return is_same_tree(t1.left, t2.left) and is_same_tree(t1.right, t2.right)
+    else:  # if value match check left and right
+        return is_same_tree(t1.left, t2.left) and is_same_tree(t1.right, t2.right)
 
 
 if __name__ == '__main__':
