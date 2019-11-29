@@ -194,6 +194,24 @@ class BinaryTree:
         # we also need to set the global root to None
         self.root = None
 
+    def is_same_tree(self, t1: TreeNode, t2: TreeNode) -> bool:
+        """
+        Returns whether t1 and t2 are the same trees
+        :param t1: tree 1
+        :param t2: tree 2
+        :Time: O(N)
+        :Space: O(N) (best case O(log(n)) since num recursion stacks proportional to height)
+        :return: whether they are the same
+        """
+        if not t1 and not t2:  # both nulls are same
+            return True
+        elif not t1 or not t2:  # if one is null, not the same
+            return False
+        elif t1.val != t2.val:  # if value mismatch not the same
+            return False
+        else:  # if value match check left and right
+            return self.is_same_tree(t1.left, t2.left) and self.is_same_tree(t1.right, t2.right)
+
 
 if __name__ == "__main__":
     # test = BinaryTree()
