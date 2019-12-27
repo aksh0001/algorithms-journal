@@ -7,6 +7,7 @@ import random
 
 from data_structures.trees.utils import *
 import gc
+from typing import List
 
 
 class BinaryTree:
@@ -212,6 +213,31 @@ class BinaryTree:
         else:  # if value match check left and right
             return self.is_same_tree(t1.left, t2.left) and self.is_same_tree(t1.right, t2.right)
 
+    @staticmethod
+    def build(inorder: List) -> TreeNode:
+        """
+        Utility to make it easier to construct trees from an inorder traversal list.
+        :param inorder: inorder traversal of tree including None values
+        :return: root of constructed tree
+        """
+        # e.g. use build([3,9,20,None,None,15,7]
+        if not inorder:
+            return None
+        root, i = TreeNode(inorder[0]), 1  # root to return and next index to look at
+        q = [(root)]
+        while i + 1 < len(inorder):
+            rm = q.pop(0)
+            if inorder[i]:
+                rm.left = TreeNode(inorder[i])
+            if inorder[i + 1]:
+                rm.right = TreeNode(inorder[i + 1])
+            if rm.left:
+                q.append(rm.left)
+            if rm.right:
+                q.append(rm.right)
+            i += 2
+        return root
+
 
 if __name__ == "__main__":
     # test = BinaryTree()
@@ -244,3 +270,5 @@ if __name__ == "__main__":
     for i in range(1, 11):
         test_2.insert(int(random.random() * 100))
     pretty_print_tree(test_2.root)
+
+    print(BinaryTree().build([3, 9, 20, None, None, 15, 7]))
