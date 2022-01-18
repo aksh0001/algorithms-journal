@@ -195,7 +195,7 @@ class HashTable:
         This method deletes a <K,V> pair in the hash table given a key. Implements a non-lazy deletion.
         :param key: the key to be deleted
         :return: void
-        :raises KeyError: via co  ntains if key does not exist in the table
+        :raises KeyError: via contains if key does not exist in the table
         :Complexity: O(M) worst case, M is the size of the table
         """
         if not self.__contains__(key):
